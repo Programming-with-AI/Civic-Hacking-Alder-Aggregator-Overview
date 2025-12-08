@@ -1,13 +1,17 @@
-In order to let participants focus on building the buisness logic of their programs, and not get bogged down in looking for URLs and CSS selectors for the scrapers, we are providing that information for you. Feel free to suppliment this information with your own research as necessary. 
+In order to let participants focus on building the business logic of their programs, and not get bogged down in looking for URLs and CSS selectors for the scrapers, we are providing that information for you. Feel free to supplement this information with your own research as necessary. 
 
 I'm starting with `#block-city-front-content` often as an ID that should speed up the selection and limit the ability of new website features that aren't related to the posts themselves from breaking the scraping. 
+
+## Pages
+The base URL for Alder blogs is https://www.cityofmadison.com/council/districtXX/blog, where XX is the Alder district, 1 through 20, with no leading zeros. 
 
 
 ## Post List Selectors
 
 > `X` in the `:nth-child(X)` pseudo selectors should be the index of the current post or link. In CSS selectors, the first index is 1, not 0. 
 
-> Pagination is done with adding `?page=X` to the blog list URL, where `X` is the desired page. The total number of pages can be determined with the last page link below.
+> Pagination is done with adding `?page=X` to the blog list URL, where `X` is the desired page. The total number of pages can be determined with the last page link below. It is safe to start with ?page=0 for the first page, which will return the most recent blog posts.
+To iterate over all pages, you can start with ?page=0 and from that, find the last page link content/selector, and note the page parameter, and loop over each page onward from page 0 util the last page. 
 
 | Content | Selector | Notes |
 | -------- | -------- | ------ |
