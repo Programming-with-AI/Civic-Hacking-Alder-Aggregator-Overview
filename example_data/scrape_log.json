@@ -1,0 +1,32 @@
+{
+  "runs": [
+    {
+      "timestamp": "2025-12-13T11:56:28.697352",
+      "posts_discovered": 175,
+      "posts_updated": 0,
+      "errors": [],
+      "duration_seconds": 42.08
+    },
+    {
+      "timestamp": "2025-12-13T11:57:12.241909",
+      "posts_discovered": 0,
+      "posts_updated": 0,
+      "errors": [],
+      "duration_seconds": 21.1
+    },
+    {
+      "timestamp": "2025-12-13T12:13:56.848046",
+      "posts_discovered": 4073,
+      "posts_updated": 0,
+      "errors": [],
+      "duration_seconds": 994.5
+    },
+    {
+      "timestamp": "2026-01-15T20:16:38.888129",
+      "posts_discovered": 89,
+      "posts_updated": 9,
+      "errors": [],
+      "duration_seconds": 1025.12
+    }
+  ]
+}
