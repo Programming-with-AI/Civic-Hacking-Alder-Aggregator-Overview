@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Madison Alder Blog Aggregator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Lightweight aggregator for Madison Common Council Alder blog posts."
+    />
+    <!-- Tailwind via CDN for simplicity in the live demo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Respect system light/dark mode -->
+    <style>
+      body {
+        background-color: #f9fafb;
+        color: #0f172a;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #020617;
+          color: #e5e7eb;
+        }
+      }
+    </style>
+    <!-- RSS feed hook (Stage 4 will make this real) -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Madison Alder Blog Aggregator RSS"
+      href="/feed.xml"
+    />
+  </head>
+  <body class="min-h-screen">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <header class="mb-8">
+        <h1 class="text-3xl font-semibold tracking-tight mb-2">
+          Madison Alder Blog Aggregator
+        </h1>
+        <p class="text-sm text-slate-600 dark:text-slate-300 max-w-2xl">
+          Links to recent blog posts from Madison Common Council Alders,
+          collected from the official city website. Click any title to read the
+          full post on the city site.
+        </p>
+        <div class="mt-3 text-sm">
+          <a
+            href="/feed.xml"
+            class="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            <span>Subscribe via RSS</span>
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <section class="mb-4 flex items-center justify-between gap-4">
+          <div id="summary" class="text-sm text-slate-600 dark:text-slate-300">
+            Loading posts…
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <button
+              id="prevPage"
+              class="rounded-md border px-2 py-1 text-xs font-medium border-slate-300 dark:border-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              disabled
+            >
+              Previous
+            </button>
+            <span id="pageInfo" class="text-xs text-slate-500 dark:text-slate-400"
+              >Page 1</span
+            >
+            <button
+              id="nextPage"
+              class="rounded-md border px-2 py-1 text-xs font-medium border-slate-300 dark:border-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              disabled
+            >
+              Next
+            </button>
+          </div>
+        </section>
+
+        <section id="posts" class="space-y-3" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
+

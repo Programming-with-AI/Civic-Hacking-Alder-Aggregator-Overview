@@ -1,0 +1,77 @@
+name: Scrape and Build (run-2)
+
+on:
+  # Run daily at 6 AM UTC (midnight CST / 1 AM CDT)
+  schedule:
+    - cron: '0 6 * * *'
+  # Run on push to main
+  push:
+    branches:
+      - main
+    paths:
+      - 'run-2/**'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  scrape-and-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: run-2
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: run-2/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run scraper (incremental)
+        run: npm run scrape
+
+      - name: Build static site
+        run: npm run build:site
+
+      - name: Generate RSS feed
+        run: npm run build:rss
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/posts.json public/posts.json public/feed.xml
+          git diff --staged --quiet || git commit -m "Update posts data [skip ci]"
+          git push
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: run-2/public
+
+  deploy:
+    needs: scrape-and-build
+    runs-on: ubuntu-latest
+    
+    # Only deploy on main branch
+    if: github.ref == 'refs/heads/main'
+    
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
